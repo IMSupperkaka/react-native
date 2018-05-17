@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, ScrollView } from 'react-native'
+import { Text, View, Image, StyleSheet, TextInput, ScrollView, RefreshControl } from 'react-native'
 
 class Greeting extends Component {
     render() {
@@ -53,17 +53,74 @@ class PizzaTranslator extends Component {
 }
 
 class IScrolledDownAndWhatHappenedNextShockedMe extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isRefreshing: false
+        }
+        this._onRefresh = this._onRefresh.bind(this);
+    }
     render() {
-        
+        return (
+            <ScrollView 
+                refreshControl={<RefreshControl 
+                    refreshing={this.state.isRefreshing}
+                    onRefresh={this._onRefresh}
+                    tintColor="#ff0000"
+                    title="Loading..."
+                    colors={['#000', '#00ff00', '#0000ff']}
+                />}
+                style={{backgroundColor: '#3b3738',flex:1}}>
+                <View style={{alignItems: 'center'}}>
+                    <Text style={{fontSize:30,color: '#fff'}}>Scroll me plz</Text>
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Text style={{fontSize:30,color: '#fff'}}>If you like</Text>
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Text style={{fontSize:30,color: '#fff'}}>Scrolling down</Text>
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Text style={{fontSize:30,color: '#fff'}}>What's the best</Text>
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Text style={{fontSize:30,color: '#fff'}}>Framework around?</Text>
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Image source={require('./img/favicon.png')} />
+                    <Text style={{fontSize:30,color: '#fff'}}>React Native</Text>
+                </View>
+            </ScrollView>
+        );
+    }
+    _onRefresh() {
+        this.setState({isRefreshing: true});
+        setTimeout(() => {
+            this.setState({
+              isRefreshing: false
+            });
+        }, 5000);
     }
 }
 
 export default class LotsOfGreetings extends Component {
     render() {
         return (
-          <View style={{alignItems: 'center'}}>
-              <PizzaTranslator/>
-          </View>
+            <IScrolledDownAndWhatHappenedNextShockedMe/>
         );
     }
 }
